@@ -1,0 +1,124 @@
+<div>
+  <button nz-button nzType="primary" (click)="showModal()">
+    <span>Add Book</span>
+  </button>
+
+  <nz-table
+    #nzTable
+    [nzData]="listOfData"
+    nzTableLayout="fixed"
+    nzShowPagination="false"
+  >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Author</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of nzTable.data">
+        <tr>
+          <td>{{ data.name }}</td>
+          <td>{{ data.price }}</td>
+          <td>{{ data.author }}</td>
+          <td>{{ data.description }}</td>
+          <td>
+            <button nz-button nzType="primary" (click)="handleEdit(data)">
+              Edit
+            </button>
+            <button
+              nz-button
+              nzType="default"
+              (click)="showConfirm(data)"
+              nzDanger
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Add Book"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+  >
+    <ng-container *nzModalContent>
+      <form nz-form [formGroup]="validateForm">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired nzFor="name"
+            >Name</nz-form-label
+          >
+          <nz-form-control [nzSpan]="12" nzErrorTip="Please input book name!">
+            <input
+              id="name"
+              type="text"
+              name="name"
+              nz-input
+              formControlName="name"
+              [(ngModel)]="name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired nzFor="price"
+            >Price</nz-form-label
+          >
+          <nz-form-control [nzSpan]="12" nzErrorTip="Please input book price!">
+            <input
+              id="price"
+              type="number"
+              name="price"
+              min="0"
+              nz-input
+              formControlName="price"
+              [(ngModel)]="price"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired nzFor="description"
+            >Description</nz-form-label
+          >
+          <nz-form-control
+            [nzSpan]="12"
+            nzErrorTip="Please input book description!"
+          >
+            <input
+              id="description"
+              type="text"
+              name="description"
+              nz-input
+              formControlName="description"
+              [(ngModel)]="description"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired nzFor="author"
+            >Author</nz-form-label
+          >
+          <nz-form-control [nzSpan]="12" nzErrorTip="Please input book author!">
+            <input
+              id="author"
+              type="text"
+              name="author"
+              nz-input
+              formControlName="author"
+              [(ngModel)]="author"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-container>
+  </nz-modal>
+</div>
